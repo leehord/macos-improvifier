@@ -1,6 +1,7 @@
 # ---------- #
 # Go faster
 # ---------- #
+
 echo "Disable window + popover open / close animations"
 defaults write -g NSAutomaticWindowAnimationsEnabled -boolean false
 
@@ -25,10 +26,10 @@ defaults write com.apple.finder DisableAllAnimations -boolean true
 echo "Speed up Mission Control / Exposé animations"
 defaults write com.apple.dock expose-animation-duration -float 0.1
 
-
 # ---------- #
 # Finder
 # ---------- #
+
 echo "Disable extension change warning (wtf)"
 defaults write com.apple.finder FXEnableExtensionChangeWarning -boolean false
 
@@ -41,6 +42,9 @@ defaults write com.apple.finder _FXShowPosixPathInTitle -boolean true
 echo "Show Finder path bar"
 defaults write com.apple.finder ShowPathBar -boolean true
 
+echo "Show Finder status bar"
+defaults write com.apple.finder ShowStatusBar -bool true
+
 echo "Show all filename extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -boolean true
 
@@ -48,27 +52,13 @@ echo "Limit finder search scope to current dir"
 defaults write com.apple.finder FXDefaultSearchScope -string “SCcf”
 
 echo "Disable DS_Store"
-# I believe this hasn't worked properly for quite some time, but still worth a shot
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -boolean true
-defaults write com.apple.desktopservices DSDontWriteUSBStores -boolean true
 
 echo "Select text from QuickLook (may no longer work)"
-# Supposedly broken on/after Sierra?
 defaults write com.apple.finder QLEnableTextSelection -boolean true
 
 echo "Enable folder spring loading"
 defaults write NSGlobalDomain com.apple.springing.enabled -boolean true
-
-# echo "Show the ~/Library folder"
-# # Deprecated by enabling Library folder in Finder
-# chflags nohidden ~/Library
-
-# echo "Disable empty trash warning"
-# defaults write com.apple.finder WarnOnEmptyTrash -boolean false
-
-# echo "Show all hiddden files"
-# # Deprecated by cmd + shift + . in newer versions of Finder
-# defaults write com.apple.finder AppleShowAllFiles -boolean true
 
 # ---------- #
 # System
@@ -101,12 +91,14 @@ defaults write com.apple.loginwindow PowerButtonSleepsSystem -boolean false
 echo "Slow down Time Machine backup interval from hourly to every 4 hours"
 defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 14400
 
+echo "Disable Time Machine prompt"
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
 echo "Don't save to iCloud by default"
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -boolean false
 
 echo "Don't float help viewer windows"
 defaults write com.apple.helpviewer DevMode -boolean true
-
 
 # ---------- #
 # Input
@@ -115,13 +107,8 @@ defaults write com.apple.helpviewer DevMode -boolean true
 echo "Repeat a letter upon holding a keypress"
 defaults write -g ApplePressAndHoldEnabled -boolean false
 
-# echo "Reduce the delay until repeating the key"
-# # Disabled because I find the shortest delay available in kb prefs to be adequate
-# defaults write NSGlobalDomain InitialKeyRepeat -int 10
-
 echo "Repeat letters quickly"
 defaults write NSGlobalDomain KeyRepeat -int 3
-
 
 # ---------- #
 # Misc
@@ -133,8 +120,8 @@ defaults write com.apple.TextEdit RichText -int 0
 echo "Disable TextEdit ruler"
 defaults write com.apple.TextEdit ShowRuler 0
 
-echo "Send screenshots to desktop subfolder (~/Desktop/Screenshots)"
-mkdir ~/Desktop/Screenshots && defaults write com.apple.screencapture location ~/Desktop/Screenshots/
+echo "Save screenshots as .jpg"
+defaults write com.apple.screencapture type jpg
 
 echo "Disable screenshot shadow"
 defaults write com.apple.screencapture disable-shadow -boolean true
